@@ -49,7 +49,7 @@ foo@bar:~$ git clone https://github.com/tsfEmpaty/2DPlatformerWithProcessing.git
 
 # Screenshots
 
-![Game screenshot](GameWithProcessing\src\screenshot.png)
+![Game screenshot](GameWithProcessing/src/screenshot.png)
 
 > Game screenshot.
 
