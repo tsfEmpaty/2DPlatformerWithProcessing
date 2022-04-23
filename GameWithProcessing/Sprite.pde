@@ -31,6 +31,8 @@ public class Sprite {
     this(filename, scale, 0, 0);
   }
 
+
+  // Set Steps Methods
   public void set_step_x(float step) {
     step_x = step;
   }
@@ -39,6 +41,8 @@ public class Sprite {
     step_y = step;
   }
   
+  
+  // Set Positions Methods
   public void set_position_x(float position){
     position_x = position;
   }
@@ -47,6 +51,8 @@ public class Sprite {
     position_y = position;
   }
   
+  
+  // Get Steps Methods
   public float get_step_x(){
     return step_x;
   }
@@ -62,16 +68,20 @@ public class Sprite {
   public float get_position_y(){
     return position_y;
   }
-
+  
+  
   public void show() {
     image(img, position_x, position_y, s_width, s_height);
   }
+  
   
   public void update_position(){
     position_x += step_x;
     position_y += step_y;
   }
   
+  
+  // Set Sides Methods
   public void setTop(float top){
     position_y = top + s_height / 2;
   }
@@ -88,6 +98,8 @@ public class Sprite {
     position_x = left + s_width / 2;
   }  
   
+  
+  // Get Sides Methods
   public float getTop(){
     return position_y - s_width / 2;
   }
