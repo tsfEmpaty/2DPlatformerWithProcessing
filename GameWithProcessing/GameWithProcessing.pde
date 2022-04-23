@@ -9,7 +9,7 @@ ArrayList<Sprite> platforms;
 
 float view_x, view_y;
 
-final static float SPRITE_SIZE = 60;
+final static float SPRITE_SIZE = 50;
 final static float SPRITE_SCALE = SPRITE_SIZE/128;
 final static float MOVE_SPEED = 2;
 final static float GRAVITY = 0.5;
