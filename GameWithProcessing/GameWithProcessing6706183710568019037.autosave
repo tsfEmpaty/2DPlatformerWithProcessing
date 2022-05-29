@@ -47,7 +47,7 @@ void draw() {
   background(255, 255, 255);
   scroll();
 
-  // bob.show();
+  show();
   // resolvePlatformCollisions(bob, platforms);
 
   if (!gameOver){
@@ -95,12 +95,10 @@ void keyPressed() {
     bob.set_step_x(MOVE_SPEED);
   else if (keyCode == LEFT)
     bob.set_step_x(-MOVE_SPEED);
-   else if (keyCode == UP && isOnPlatforms(bob, platforms))
-    bob.set_step_y(-JUMP_SPEED);
+   else if (keyCode == UP)
+    bob.set_step_y(-MOVE_SPEED);
   else if (keyCode == DOWN)
     bob.set_step_y(MOVE_SPEED);
-  else if (gameOver && keyCode == ENTER)
-    setup();
 }
 
 
@@ -219,14 +217,4 @@ void scroll(){
     view_y -= bob.getTop() - top_bound;
 
   translate(-view_x, -view_y);
-}
-
-public boolean isOnPlatforms(Sprite s, ArrayList<Sprite> walls){
-  s.position_y += 5;
-  ArrayList<Sprite> collisions = checkCollisionsList(s, walls);
-  s.position_y -= 5;
-  if (collisions.size() != 0)
-    return true;
-  else
-    return false;
 }

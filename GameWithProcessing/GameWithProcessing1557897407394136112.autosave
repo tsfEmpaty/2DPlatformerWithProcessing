@@ -7,7 +7,7 @@ PImage red_block;
 PImage brown_block;
 ArrayList<Sprite> platforms;
 
-float view_x, view_y;
+float view_x = 0, view_y = 0;
 boolean gameOver;
 
 final static float SPRITE_SIZE = 50;
@@ -29,6 +29,11 @@ void setup() {
   // Setting Size For Window
   size(800, 600);
   imageMode(CENTER);
+  
+  gameOver = false;
+  
+  view_x = 0; view_y = 0;
+  
   bob = new Sprite("src/bob.png", 80, 300, 0.55);
   bob.set_step_x(0);
   bob.set_step_y(0);
@@ -44,50 +49,16 @@ void setup() {
 
 // Drawing (every 60 frames)
 void draw() {
-  background(255, 255, 255);
   scroll();
+  background(255, 255, 255);
 
-  // bob.show();
-  // resolvePlatformCollisions(bob, platforms);
-
-  if (!gameOver){
-    update();
-  }
-}
-
-void show(){
   bob.show();
-  for (Sprite s: platforms)
-    s.show();
-  
-  if (gameOver){
-    textSize(32);
-    fill(0, 102, 153);
-    text("Game Over!", view_x + width / 2 - 100, view_y + height / 2 - 200);
-    if (bob.getBottom() > GROUND)
-      text("You dead!", view_x + width / 2 - 100, view_y + height / 2 - 160);
-    if (bob.getRight() > WIN_LENGHT)
-      text("You passed the game!", view_x + width / 2 - 100, view_y + height / 2 - 60);
-    text("Press Enter to start game again!", view_x + width / 2 - 200, view_y + height / 2 - 100);
-  }
-}
-
-void update(){
   resolvePlatformCollisions(bob, platforms);
-  checkDeath();
-  show();
-  checkWin();
+
+  for (Sprite s : platforms)
+    s.show();
 }
 
-void checkWin(){
-  if (bob.getRight() > WIN_LENGHT)
-    gameOver = true;
-}
-
-void checkDeath(){
-  if (bob.getBottom() > GROUND)
-    gameOver = true;
-}
 
 // Moving
 void keyPressed() {
@@ -95,12 +66,10 @@ void keyPressed() {
     bob.set_step_x(MOVE_SPEED);
   else if (keyCode == LEFT)
     bob.set_step_x(-MOVE_SPEED);
-   else if (keyCode == UP && isOnPlatforms(bob, platforms))
-    bob.set_step_y(-JUMP_SPEED);
+   else if (keyCode == UP)
+    bob.set_step_y(-MOVE_SPEED);
   else if (keyCode == DOWN)
     bob.set_step_y(MOVE_SPEED);
-  else if (gameOver && keyCode == ENTER)
-    setup();
 }
 
 
@@ -219,14 +188,4 @@ void scroll(){
     view_y -= bob.getTop() - top_bound;
 
   translate(-view_x, -view_y);
-}
-
-public boolean isOnPlatforms(Sprite s, ArrayList<Sprite> walls){
-  s.position_y += 5;
-  ArrayList<Sprite> collisions = checkCollisionsList(s, walls);
-  s.position_y -= 5;
-  if (collisions.size() != 0)
-    return true;
-  else
-    return false;
 }
